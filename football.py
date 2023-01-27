@@ -25,12 +25,24 @@ ax.bar_label(ax.containers[0])
 # History of player price
 fig, ax = plt.subplots(figsize=(12, 7))
 player=player_price_history('Modric',players_data,player_valuations_data)
+name=player['last_name'].iloc[0]
 plot=sns.lineplot(player,x=player['datetime'],y=player['market_value_in_eur']/10**6,linewidth=5,
                   marker='p',markersize=7)
-plt.title('History of player price')
+plt.title('History of {0} price'.format(name))
 plt.xticks(rotation=45)
 plt.ylabel("Price in milon of euro")
 plt.grid()
 new_ticks = [i.get_text() for i in plot.get_xticklabels()]
 plt.xticks(range(0, len(new_ticks), 5), new_ticks[::5])
+
+
+# Age of players
+players_age=players_age('Real Madrid',players_data)
+club=players_age['current_club_name'].iloc[0]
+fig,ax=plt.subplots(figsize=(15,10))
+sns.barplot(data=players_age,x='last_name',y='age')
+plt.title('{0} players age'.format(club))
+plt.xticks(rotation=45)
+plt.ylabel("age")
+ax.bar_label(ax.containers[0])
 plt.show()
