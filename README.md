@@ -66,7 +66,7 @@ def players_age(club_name,players_data):
  ```
 ## Visualisation of results 📊 
 
-###In this moment project have functionality to display chart like as: 
+In this moment project have functionality to display chart like as: 
 #### Price of players from the selected club on the chart ( Real Madrit squad price)
 ![Real Madrid Actual Price](https://user-images.githubusercontent.com/122997699/215055253-56597eb2-d314-4fe6-8ad9-607d8a2a767a.png)
 #### History of the player price ( Luka Modric price history )
