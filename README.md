@@ -92,3 +92,4 @@ In this moment project have functionality to display chart like as:
 #### Age of all players in the selected team
 ![Real_madrid_players_age](https://user-images.githubusercontent.com/122997699/215271448-13fbdfb4-e95b-46e5-8f93-7ec8d12b9284.png)
 #### Player stats in one season
+![](Figure_4.png)
