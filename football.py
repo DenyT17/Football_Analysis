@@ -45,4 +45,17 @@ plt.title('{0} players age'.format(club))
 plt.xticks(rotation=45)
 plt.ylabel("age")
 ax.bar_label(ax.containers[0])
+# plt.show()
+
+# Player stats for the selected year
+
+benzema_stats=player_year_stats('Benzema',2021,appearances_data,players_data)
+fig,ax=plt.subplots(figsize=(15,10))
+name=benzema_stats.columns.values
+sns.barplot(data=benzema_stats,x=benzema_stats.index,y=benzema_stats['Benzema'])
+plt.title('{0} players stats'.format(name[0]))
+plt.xticks(rotation=45)
+plt.ylabel("Stats")
+ax.bar_label(ax.containers[0])
 plt.show()
+

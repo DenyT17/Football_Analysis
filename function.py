@@ -33,4 +33,19 @@ def players_age(club_name,players_data):
     today=date.today()
     birthday['age']=birthday.apply(lambda birthday : calculateAge(birthday['date_of_birth']),axis=1)
     return birthday
+def player_year_stats(player_name,season,apperance_data,players_data):
+    player=players_data[['player_id','name','last_name','last_name']].loc[(players_data['name'].str.contains(player_name))]
+    player_id=player.reset_index(drop=True)
+    player_id=player_id['player_id'].iloc[0]
+    stats = apperance_data.loc[(apperance_data['player_id'] == player_id)].reset_index(drop=True)
+    stats['date'] = pd.to_datetime(stats['date'], format='%Y-%m-%d')
+    stats['year'] = stats['date'].dt.year
+    stats['month'] = stats['date'].dt.month
+    stats['day'] = stats['date'].dt.day
+    year_stats=stats.loc[(stats['date'].dt.year==season)]
+    player_stats=year_stats[['minutes_played','goals','yellow_cards','red_cards','assists']].sum()
+    player_stats['matches'] = len(year_stats)
+    return pd.DataFrame(player_stats.reindex(index=['matches'
+                                       ,'goals','assists',
+                                       'yellow_cards','red_cards'])).rename(columns={0:player_name})
 
