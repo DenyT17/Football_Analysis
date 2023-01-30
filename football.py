@@ -48,7 +48,6 @@ ax.bar_label(ax.containers[0])
 # plt.show()
 
 # Player stats for the selected year
-
 benzema_stats=player_year_stats('Benzema',2021,appearances_data,players_data)
 fig,ax=plt.subplots(figsize=(15,10))
 name=benzema_stats.columns.values

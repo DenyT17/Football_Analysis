@@ -64,6 +64,24 @@ def players_age(club_name,players_data):
     birthday['age']=birthday.apply(lambda birthday : calculateAge(birthday['date_of_birth']),axis=1)
     return birthday
  ```
+Player statistics are very important in football. The player_year_statisticis function allows you to obtain statistics of the selected player from the selected calendar year.
+```python
+def player_year_stats(player_name,season,apperance_data,players_data):
+    player=players_data[['player_id','name','last_name','last_name']].loc[(players_data['name'].str.contains(player_name))]
+    player_id=player.reset_index(drop=True)
+    player_id=player_id['player_id'].iloc[0]
+    stats = apperance_data.loc[(apperance_data['player_id'] == player_id)].reset_index(drop=True)
+    stats['date'] = pd.to_datetime(stats['date'], format='%Y-%m-%d')
+    stats['year'] = stats['date'].dt.year
+    stats['month'] = stats['date'].dt.month
+    stats['day'] = stats['date'].dt.day
+    year_stats=stats.loc[(stats['date'].dt.year==season)]
+    player_stats=year_stats[['minutes_played','goals','yellow_cards','red_cards','assists']].sum()
+    player_stats['matches'] = len(year_stats)
+    return pd.DataFrame(player_stats.reindex(index=['matches'
+                                       ,'goals','assists',
+                                       'yellow_cards','red_cards'])).rename(columns={0:player_name})
+ ```
 ## Visualisation of results 📊 
 
 In this moment project have functionality to display chart like as: 
@@ -73,5 +91,4 @@ In this moment project have functionality to display chart like as:
 ![Modric_price_history](https://user-images.githubusercontent.com/122997699/215276595-5cbd063b-5b55-4546-9b37-bcada7f414ea.png)
 #### Age of all players in the selected team
 ![Real_madrid_players_age](https://user-images.githubusercontent.com/122997699/215271448-13fbdfb4-e95b-46e5-8f93-7ec8d12b9284.png)
-
-
+#### Player stats in one season
