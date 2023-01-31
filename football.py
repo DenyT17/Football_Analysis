@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from function import *
+from tabulate import tabulate
 appearances_data=pd.read_csv('appearances.csv')
 club_games_data=pd.read_csv('club_games.csv')
 clubs_data=pd.read_csv('clubs.csv')
@@ -35,7 +36,6 @@ plt.grid()
 new_ticks = [i.get_text() for i in plot.get_xticklabels()]
 plt.xticks(range(0, len(new_ticks), 5), new_ticks[::5])
 
-
 # Age of players
 players_age=players_age('Real Madrid',players_data)
 club=players_age['current_club_name'].iloc[0]
@@ -58,3 +58,7 @@ plt.ylabel("Stats")
 ax.bar_label(ax.containers[0])
 plt.show()
 
+# Creating a tabel at the end of the selected season for the selected league
+La_Liga=table_in_season(games_data,competitions_data,'laliga',2021)
+print(tabulate(La_Liga,headers='keys',tablefmt='fancy_grid',showindex='always'))
+La_Liga.to_excel('laliga_2021.xlsx',sheet_name='LaLiga')
