@@ -91,5 +91,6 @@ In this moment project have functionality to display chart like as:
 ![Modric_price_history](https://user-images.githubusercontent.com/122997699/215276595-5cbd063b-5b55-4546-9b37-bcada7f414ea.png)
 #### Age of all players in the selected team
 ![Real_madrid_players_age](https://user-images.githubusercontent.com/122997699/215271448-13fbdfb4-e95b-46e5-8f93-7ec8d12b9284.png)
-#### Player stats in one season
-![](Figure_4.png)
+#### Player stats in one year
+![Figure_4](https://user-images.githubusercontent.com/122997699/215552055-09eb5c30-0667-436a-90d4-4c6d3bfffd10.png)
+
