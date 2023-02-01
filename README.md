@@ -17,6 +17,8 @@ In this project, I analyze the typical information related to football like:
 
 -the finall tabel for selected season and league 🏆
 
+- top 10 best scorers 🥇🥈🥉
+
 I will regularly upload new version of project with new functionality. 
 
 ## Dataset📁
@@ -133,7 +135,14 @@ Thanks to for loop i calculate number of : wins, draws and loses each team. With
     return table
 
  ```
- 
+ A function for creating a ranking of the best scorers works very similary to the table_in_season. The loop summing up the number of goals looks like this:
+ ```python
+     for player in players:
+        appearance = all_appearances.loc[(all_appearances['player_name'] == player)]
+        goals=appearance['goals'].sum()
+        new_row=pd.DataFrame([{'Player Name':player,'Goals':goals}])
+        scorers=pd.concat([scorers,new_row])
+  ```
 ## Visualisation of results 📊 
 
 In this moment project have functionality to display chart like as: 
@@ -147,5 +156,7 @@ In this moment project have functionality to display chart like as:
 ![Figure_4](https://user-images.githubusercontent.com/122997699/215552055-09eb5c30-0667-436a-90d4-4c6d3bfffd10.png)
 #### Tabel of La Liga in 2021 season:
 ![image](https://user-images.githubusercontent.com/122997699/215795508-5619f2ce-78b3-42ac-b0d8-9191cb32589a.png)
+#### Top 10 best srorers 
+![top10](https://user-images.githubusercontent.com/122997699/216058194-2aac3091-e626-4408-8333-4070d6e6bb1a.png)
 
 
