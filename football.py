@@ -63,7 +63,7 @@ print(tabulate(La_Liga,headers='keys',tablefmt='fancy_grid',showindex='always'))
 La_Liga.to_excel('laliga_2021.xlsx',sheet_name='LaLiga')
 
 ## Top 10 best scorers
-top10=best_scorer(competitions_data,'Laliga',2015,games_data,appearances_data).head(10)
+top10=best_scorers(competitions_data,'Laliga',2015,games_data,appearances_data).head(10)
 fig,ax=plt.subplots(figsize=(15,10))
 sns.barplot(data=top10,x=top10['Player Name'],y=top10['Goals'])
 plt.title('Top 10 scores',fontsize=20)
