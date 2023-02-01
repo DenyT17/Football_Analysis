@@ -13,6 +13,10 @@ In this project, I analyze the typical information related to football like:
 
 -players age 👶
 
+-player stats ⚽
+
+-the finall tabel for selected season and league 🏆
+
 I will regularly upload new version of project with new functionality. 
 
 ## Dataset📁
@@ -82,6 +86,54 @@ def player_year_stats(player_name,season,apperance_data,players_data):
                                        ,'goals','assists',
                                        'yellow_cards','red_cards'])).rename(columns={0:player_name})
  ```
+Games.csv file has information about results of ever matches in the most popular leagues belong last few years. 
+Creating a new DataFrame with only matches for the selected league and for the selected season:
+ ```python
+ def table_in_season(games_data,competitions_data,league,year):
+    league_name=competitions_data['competition_id'].loc[(competitions_data['competition_code']==league)|
+                                      (competitions_data['name']==league)].reset_index(drop=True).iloc[0]
+
+    all_matches=games_data.loc[(games_data['competition_id']==league_name)&
+                                (games_data['season']==year)&
+                                (games_data['competition_type']=='domestic_league')].reset_index(drop=True)
+    clubs=all_matches['club_home_name'].unique()
+    table=pd.DataFrame(columns=clubs,index=['Wins','Draws','Loses','Points'])
+    wins=0
+    draws=0
+    loses=0
+```
+Thanks to for loop i calculate number of : wins, draws and loses each team. With this information, I can very easily create a table with scores.
+ ```python
+    for club in clubs:
+        matches=all_matches.loc[(all_matches['club_home_name']==club)|(all_matches['club_away_name']==club)]
+        for index,row in matches.iterrows():
+            if row['club_home_name']==club:
+                if row['home_club_goals']>row['away_club_goals']:
+                    wins+=1
+                elif row['home_club_goals'] < row['away_club_goals']:
+                    loses += 1
+                else:
+                    draws+=1
+            elif row['club_away_name'] == club:
+                if row['home_club_goals'] < row['away_club_goals']:
+                    wins += 1
+                elif row['home_club_goals'] > row['away_club_goals']:
+                    loses += 1
+                else:
+                    draws += 1
+        table.at['Wins',club]=wins
+        table.at['Loses',club]=loses
+        table.at['Draws',club]=draws
+        table.at['Points',club]=wins*3+draws
+        wins = 0
+        draws = 0
+        loses = 0
+    table=table.T.sort_values(by=['Points'],ascending=False)
+    table=table.reset_index().rename(columns={'index':'Team'})
+    return table
+
+ ```
+ 
 ## Visualisation of results 📊 
 
 In this moment project have functionality to display chart like as: 
@@ -93,4 +145,7 @@ In this moment project have functionality to display chart like as:
 ![Real_madrid_players_age](https://user-images.githubusercontent.com/122997699/215271448-13fbdfb4-e95b-46e5-8f93-7ec8d12b9284.png)
 #### Player stats in one year
 ![Figure_4](https://user-images.githubusercontent.com/122997699/215552055-09eb5c30-0667-436a-90d4-4c6d3bfffd10.png)
+#### Tabel of La Liga in 2021 season:
+![image](https://user-images.githubusercontent.com/122997699/215795508-5619f2ce-78b3-42ac-b0d8-9191cb32589a.png)
+
 
