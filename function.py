@@ -88,3 +88,24 @@ def table_in_season(games_data,competitions_data,league,year):
     table=table.T.sort_values(by=['Points'],ascending=False)
     table=table.reset_index().rename(columns={'index':'Team'})
     return table
+
+def best_scorers(competitions_data,league,year,games_data,appearances):
+    league_name=competitions_data['competition_id'].loc[(competitions_data['competition_code']==league)|
+                                      (competitions_data['name']==league)].reset_index(drop=True).iloc[0]
+    all_matches = games_data['game_id'].loc[(games_data['competition_id'] == league_name) &
+                                 (games_data['season'] == year) &
+                                 (games_data['competition_type'] == 'domestic_league')].reset_index(drop=True)
+    all_appearances=appearances[['game_id','player_club_id',
+                                 'player_name','assists','goals']].merge(all_matches,on='game_id')
+    players=all_appearances['player_name'].unique()
+    goals=0
+    scorers=pd.DataFrame()
+    for player in players:
+        appearance = all_appearances.loc[(all_appearances['player_name'] == player)]
+        goals=appearance['goals'].sum()
+        new_row=pd.DataFrame([{'Player Name':player,'Goals':goals}])
+        scorers=pd.concat([scorers,new_row])
+    scorers=scorers.sort_values(by=['Goals'],ascending=False).reset_index(drop=True)
+    scorers.index=scorers.index+1
+    return scorers
+
