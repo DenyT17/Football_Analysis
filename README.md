@@ -7,17 +7,19 @@
 ## Description 
 In this project, I analyze the typical information related to football like:
 
--players price 💵
+- players price 💵
 
--history of players price 📆
+- history of players price 📆
 
--players age 👶
+- players age 👶
 
--player stats ⚽
+- player stats ⚽
 
--the finall tabel for selected season and league 🏆
+- the finall tabel for selected season and league 🏆
 
 - top 10 best scorers 🥇🥈🥉
+
+- Comparison of players goals during the season 🆚
 
 I will regularly upload new version of project with new functionality. 
 
@@ -143,6 +145,10 @@ Thanks to for loop i calculate number of : wins, draws and loses each team. With
         new_row=pd.DataFrame([{'Player Name':player,'Goals':goals}])
         scorers=pd.concat([scorers,new_row])
   ```
+  To sum numbers of goals after each matches I'm using cumsum() function. 
+ ```python
+  player_stats['Goal Sum'] =player_stats['goals'].cumsum()
+```
 ## Visualisation of results 📊 
 
 In this moment project have functionality to display chart like as: 
@@ -158,5 +164,8 @@ In this moment project have functionality to display chart like as:
 ![image](https://user-images.githubusercontent.com/122997699/215795508-5619f2ce-78b3-42ac-b0d8-9191cb32589a.png)
 #### Top 10 best srorers 
 ![top10](https://user-images.githubusercontent.com/122997699/216058194-2aac3091-e626-4408-8333-4070d6e6bb1a.png)
+#### Comparison of players goals during the season
+![VS](https://user-images.githubusercontent.com/122997699/216455088-e821319e-dbb5-414b-a372-d9f0e16041a3.png)
+
 
 
