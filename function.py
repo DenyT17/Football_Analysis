@@ -108,4 +108,23 @@ def best_scorers(competitions_data,league,year,games_data,appearances):
     scorers=scorers.sort_values(by=['Goals'],ascending=False).reset_index(drop=True)
     scorers.index=scorers.index+1
     return scorers
-
+def goal_sum(value):
+    if value==0:
+        return player_stats('goals')
+    else:
+        return
+def scorers_belong_year(player_name,season,apperance_data,players_data):
+    player_id = players_data[['player_id', 'name',
+                           'last_name', 'last_name']].loc[(players_data['name'].str.contains(player_name))].reset_index(drop=True)
+    player_id = player_id['player_id'].iloc[0]
+    stats = apperance_data.loc[(apperance_data['player_id'] == player_id)].reset_index(drop=True)
+    stats['date'] = pd.to_datetime(stats['date'], format='%Y-%m-%d')
+    stats['year'] = stats['date'].dt.year
+    stats['month'] = stats['date'].dt.month
+    stats['day'] = stats['date'].dt.day
+    year_stats = stats.loc[(stats['date'].dt.year == season)]
+    player_stats = year_stats[['date','goals']]
+    player_stats=player_stats.sort_values(by=['date']).reset_index(drop=True)
+    player_stats['Goal Sum'] =player_stats['goals'].cumsum()
+    player_stats['Player name']=player_name
+    return player_stats
